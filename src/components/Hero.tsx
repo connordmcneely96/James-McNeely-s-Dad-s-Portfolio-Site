@@ -44,6 +44,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 
 export default function Hero() {
   const [showResumes, setShowResumes] = useState(false);
+  const [photoError, setPhotoError] = useState(false);
 
   const handleScroll = (href: string) => {
     const element = document.querySelector(href);
@@ -177,22 +178,26 @@ export default function Hero() {
               {/* Photo container */}
               <div className="relative glass-effect rounded-2xl p-2 overflow-hidden">
                 <div className="aspect-square relative rounded-xl overflow-hidden bg-slate-800">
-                  {/* Placeholder - Replace with actual image */}
-                  <div className="absolute inset-0 flex items-center justify-center text-slate-600">
-                    <div className="text-center">
-                      <Shield className="w-24 h-24 mx-auto mb-4 opacity-30" />
-                      <p className="text-sm">Professional Photo</p>
-                      <p className="text-xs mt-2">james-mcneely-photo.png</p>
+                  {photoError && (
+                    <div className="absolute inset-0 flex items-center justify-center text-slate-600">
+                      <div className="text-center">
+                        <Shield className="w-24 h-24 mx-auto mb-4 opacity-30" />
+                        <p className="text-sm">Professional Photo</p>
+                        <p className="text-xs mt-2">james-mcneely-photo.png</p>
+                      </div>
                     </div>
-                  </div>
-                  {/* Uncomment when image is available */}
-                  {/* <Image
-                    src="/james-mcneely-photo.png"
-                    alt="James McNeely"
-                    fill
-                    className="object-cover"
-                    priority
-                  /> */}
+                  )}
+                  {!photoError && (
+                    <Image
+                      src="/james-mcneely-photo.png"
+                      alt="James McNeely servicing a networked copier"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 480px"
+                      className="object-cover"
+                      onError={() => setPhotoError(true)}
+                      priority
+                    />
+                  )}
                 </div>
               </div>
             </div>

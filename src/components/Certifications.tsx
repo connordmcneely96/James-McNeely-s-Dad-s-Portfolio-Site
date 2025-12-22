@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Award, CheckCircle, Clock, ExternalLink } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { Award, CheckCircle, Clock } from 'lucide-react';
 import Image from 'next/image';
 
 const certifications = [
@@ -60,6 +60,35 @@ const certifications = [
     verified: false,
   },
 ];
+
+function CertificationImage({ image, title }: { image: string | null; title: string }) {
+  const [showPlaceholder, setShowPlaceholder] = useState(false);
+
+  if (!image || showPlaceholder) {
+    return (
+      <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden bg-slate-800 border border-slate-700/50 flex items-center justify-center">
+        <div className="text-center">
+          <Award className="w-16 h-16 mx-auto mb-2 text-slate-600" />
+          <p className="text-xs text-slate-500">Certificate Image</p>
+          {image && <p className="text-xs text-slate-600 mt-1">{image}</p>}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden bg-slate-800 border border-slate-700/50">
+      <Image
+        src={image}
+        alt={title}
+        fill
+        className="object-contain p-4"
+        sizes="(max-width: 1024px) 100vw, 560px"
+        onError={() => setShowPlaceholder(true)}
+      />
+    </div>
+  );
+}
 
 export default function Certifications() {
   const ref = useRef(null);
@@ -123,23 +152,7 @@ export default function Certifications() {
 
                 {/* Certificate image */}
                 {cert.image ? (
-                  <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden bg-slate-800 border border-slate-700/50">
-                    {/* Placeholder - will show actual image when available */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <Award className="w-16 h-16 mx-auto mb-2 text-slate-600" />
-                        <p className="text-xs text-slate-500">Certificate Image</p>
-                        <p className="text-xs text-slate-600 mt-1">{cert.image}</p>
-                      </div>
-                    </div>
-                    {/* Uncomment when image is available */}
-                    {/* <Image
-                      src={cert.image}
-                      alt={cert.title}
-                      fill
-                      className="object-contain p-4"
-                    /> */}
-                  </div>
+                  <CertificationImage image={cert.image} title={cert.title} />
                 ) : (
                   <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 flex items-center justify-center">
                     <div className="text-center">
