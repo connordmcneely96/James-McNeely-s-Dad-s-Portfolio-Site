@@ -46,7 +46,7 @@ const certifications = [
     title: 'CompTIA Security+',
     issuer: 'CompTIA',
     status: 'In Progress',
-    date: 'Expected 2025',
+    date: 'Expected 2026',
     image: null,
     skills: [
       'Network Security',
