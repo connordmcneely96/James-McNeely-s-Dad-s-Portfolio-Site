@@ -20,12 +20,9 @@ const skillCategories = [
     title: 'IT Service Management',
     gradient: 'from-blue-500 to-cyan-500',
     skills: [
+      { name: 'ECI E-automate', level: 85 },
       { name: 'ServiceNow', level: 85 },
       { name: 'Zendesk', level: 85 },
-      { name: 'Freshdesk', level: 80 },
-      { name: 'Jira', level: 80 },
-      { name: 'ITIL Framework', level: 90 },
-      { name: 'SLA Management', level: 95 },
     ],
   },
   {
