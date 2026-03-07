@@ -26,14 +26,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
-    setIsOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -45,31 +37,31 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.div
+          <motion.a
+            href="#home"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-2 cursor-pointer"
-            onClick={() => handleNavClick('#home')}
           >
             <Shield className="w-8 h-8 text-primary-500" />
             <span className="font-bold text-xl font-heading">
               James <span className="gradient-text">McNeely</span>
             </span>
-          </motion.div>
+          </motion.a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {navLinks.map((link, index) => (
-              <motion.button
+              <motion.a
                 key={link.name}
+                href={link.href}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                onClick={() => handleNavClick(link.href)}
                 className="px-4 py-2 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-300 font-medium"
               >
                 {link.name}
-              </motion.button>
+              </motion.a>
             ))}
           </div>
 
@@ -97,13 +89,14 @@ export default function Navbar() {
           >
             <div className="px-4 py-4 space-y-2">
               {navLinks.map((link) => (
-                <button
+                <a
                   key={link.name}
-                  onClick={() => handleNavClick(link.href)}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
                   className="block w-full text-left px-4 py-3 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-300 font-medium"
                 >
                   {link.name}
-                </button>
+                </a>
               ))}
             </div>
           </motion.div>
