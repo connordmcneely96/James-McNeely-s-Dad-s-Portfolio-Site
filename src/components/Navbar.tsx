@@ -13,18 +13,36 @@ const navLinks = [
   { name: 'Contact', href: '#contact' },
 ];
 
+const NAVBAR_HEIGHT = 64;
+
+function scrollToSection(selector: string) {
+  const el = document.getElementById(selector.replace('#', ''));
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleDesktopClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    scrollToSection(href);
+  };
+
+  const handleMobileClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    setIsOpen(false);
+    // Wait for menu close animation before scrolling
+    setTimeout(() => scrollToSection(href), 300);
+  };
 
   return (
     <nav
@@ -39,6 +57,7 @@ export default function Navbar() {
           {/* Logo */}
           <motion.a
             href="#home"
+            onClick={(e) => handleDesktopClick(e, '#home')}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-2 cursor-pointer"
@@ -55,6 +74,7 @@ export default function Navbar() {
               <motion.a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleDesktopClick(e, link.href)}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
@@ -92,7 +112,7 @@ export default function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleMobileClick(e, link.href)}
                   className="block w-full text-left px-4 py-3 text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-300 font-medium"
                 >
                   {link.name}
