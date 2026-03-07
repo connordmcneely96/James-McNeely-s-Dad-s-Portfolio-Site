@@ -177,7 +177,7 @@ export default function Hero() {
 
               {/* Photo container */}
               <div className="relative glass-effect rounded-2xl p-2 overflow-hidden">
-                <div className="aspect-square relative rounded-xl overflow-hidden bg-slate-800">
+                <div className="aspect-[3/4] relative rounded-xl overflow-hidden bg-slate-800">
                   {photoError && (
                     <div className="absolute inset-0 flex items-center justify-center text-slate-600">
                       <div className="text-center">
@@ -189,11 +189,11 @@ export default function Hero() {
                   )}
                   {!photoError && (
                     <Image
-                      src="/james-mcneely-photo.png"
-                      alt="James McNeely servicing a networked copier"
+                      src="/Screenshot_20260306-212043.png"
+                      alt="James McNeely - IT Service Manager"
                       fill
                       sizes="(max-width: 1024px) 100vw, 480px"
-                      className="object-cover"
+                      className="object-cover object-top"
                       onError={() => setPhotoError(true)}
                       priority
                     />
