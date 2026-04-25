@@ -55,7 +55,20 @@ const certifications = [
       'Threats & Vulnerabilities',
       'Application Security',
     ],
-    description: 'Industry-standard certification covering security concepts, risk management, cryptography, and security architecture.',
+    {
+    title: 'CompTIA A+',
+    issuer: 'CompTIA',
+    status: 'Completed',
+    date: 'April 2026',
+    image: CompTIA_A_2B.png,
+    skills: [
+      'Hardware Troubleshooting',
+        'Operating Systems',
+        'Network Support',
+        'Help Desk',
+        'Device Security',
+    ]
+    description: 'ompTIA A+ validates foundational IT support skills across hardware, operating systems, networking, cybersecurity, troubleshooting, mobile devices, cloud concepts, and help desk operations. This certification demonstrates the ability to diagnose technical issues, support end users, configure devices, install software, maintain systems, and follow best practices for secure and professional IT service delivery.',
     gradient: 'from-purple-500 to-pink-500',
     verified: false,
   },
